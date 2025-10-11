@@ -166,8 +166,8 @@ p.lead {
 }
 
 .section {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 80px;
+    padding-bottom: 40px;
     padding-left: 0;
     padding-right: 0;
 
@@ -206,10 +206,17 @@ p.lead {
     background: -moz-linear-gradient(135deg, rgb(74, 13, 143) 0%, rgb(250, 42, 143) 100%);
     background: -webkit-linear-gradient(135deg, rgb(74, 13, 143) 0%, rgb(250, 42, 143) 100%);
     background: linear-gradient(135deg, rgb(74, 13, 143) 0%, rgb(250, 42, 143) 100%); */
+    
     background-image: -moz-linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
     background-image: -webkit-linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
     background-image: -ms-linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
     background-image: linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
+
+    /* background-image: -moz-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -webkit-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -ms-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: linear-gradient(135deg, #A996D5 0%, #A996D5 100%); */
+
     -webkit-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.1);
@@ -221,6 +228,11 @@ p.lead {
     background-image: -webkit-linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
     background-image: -ms-linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
     background-image: linear-gradient(135deg, rgb(140, 110, 180) 0%, rgb(230, 160, 210) 100%);
+    /* background-image: -moz-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -webkit-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -ms-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: linear-gradient(135deg, #A996D5 0%, #A996D5 100%); */
+
 }
 
 .navbar-nav .nav-link {
@@ -275,6 +287,10 @@ header {
     background-image: -webkit-linear-gradient(135deg, rgba(140, 110, 180, 0.9) 0%, rgba(230, 160, 210, 0.9) 100%);
     background-image: -ms-linear-gradient(135deg, rgba(140, 110, 180, 0.9) 0%, rgba(230, 160, 210, 0.9) 100%);
     background-image: linear-gradient(135deg, rgba(140, 110, 180, 0.9) 0%, rgba(230, 160, 210, 0.9) 100%);
+    /* background-image: -moz-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -webkit-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: -ms-linear-gradient(135deg, #A996D5 0%, #A996D5 100%);
+    background-image: linear-gradient(135deg, #A996D5 0%, #A996D5 100%); */
 }
 
 .tagline {
@@ -313,10 +329,10 @@ header {
 ----------------------*/
 
 .gradient-fill:before {
-    color: #fc73b4;
-    background: -moz-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: -webkit-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: linear-gradient(to bottom, #9477b4 0%, #fc73b4 100%);
+    color: #FBC2EB;
+    background: -moz-linear-gradient(top, #A18CD1 0%, #FBC2EB 62%);
+    background: -webkit-linear-gradient(top, #A18CD1 0%, #FBC2EB 62%);
+    background: linear-gradient(to bottom, #A18CD1 0%, #FBC2EB 62%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -342,10 +358,10 @@ header {
     content: "";
     position: absolute;
     width: 3px;
-    color: #fc73b4;
-    background: -moz-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: -webkit-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: linear-gradient(to bottom, #9477b4 0%, #fc73b4 100%);
+    color: #FBC2EB;
+    background: -moz-linear-gradient(top, #A18CD1 0%, #FBC2EB 62%);
+    background: -webkit-linear-gradient(top, #A18CD1 0%, #FBC2EB 62%);
+    background: linear-gradient(to bottom, #A18CD1 0%, #FBC2EB 62%);
     top: 0;
     bottom: 0;
     left: 0;
