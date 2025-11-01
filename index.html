@@ -7,6 +7,12 @@ Author  : Colorlib
 URI     : https://colorlib.com
 
  -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+
 <script>
   function redirectToStore() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -27,6 +33,29 @@ URI     : https://colorlib.com
       }
     }
   }
+
+document.getElementById('languageSelect').addEventListener('change', function() {
+  const selectedLang = this.value;
+  loadLanguage(selectedLang);
+  localStorage.setItem('selectedLang', selectedLang); // save preference
+});
+
+function loadLanguage(lang) {
+  fetch(`lang/${lang}.json`)
+    .then(response => response.json())
+    .then(data => {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        // if (data[key]) el.innerText = data[key];
+        if (data[key]) el.innerHTML = data[key];
+      });
+    });
+}
+
+// Load saved language on start
+const savedLang = localStorage.getItem('selectedLang') || 'en';
+loadLanguage(savedLang);
+document.getElementById('languageSelect').value = savedLang;
 </script>
 <head>
     <title>Life Partner Dating App</title>
@@ -79,13 +108,22 @@ URI     : https://colorlib.com
                         <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="img-fluid" alt="Life Partner App Logo" style="width: 189px; height: auto;"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item"> <a class="nav-link active" href="#home">HOME <span class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" href="#home" data-i18n="home_title">HOME <span class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="#features">FEATURES</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="#gallery">GALLERY</a> </li>
                                 <!-- <li class="nav-item"> <a class="nav-link" href="#pricing">PRICING</a> </li> -->
                                 <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
                                 <li class="nav-item"><a href="#" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3" onclick="redirectToStore()">Download</a></li>
+                                <li class="nav-item"> 
+                                    <!-- Language Switcher -->   
+                                    <select id="languageSelect" class="nav-link btn btn-outline-light my-3 my-sm-0 ml-lg-3" style="width:auto;">
+                                        <option value="en">🇬🇧 English</option>
+                                        <option value="mm">🇲🇲 မြန်မာ</option>
+                                    </select>
+                                   
+                                </li>
                             </ul>
+                            
                         </div>
                     </nav>
                 </div>
@@ -106,10 +144,10 @@ URI     : https://colorlib.com
             <p class="tagline" style="padding-bottom: 30px;  margin-left:20px; margin-right:20px; align-items: center; align-content: center; text-align: center;"><strong>Life Partner</strong> is more than a dating app. We connect real people seeking genuine, long-term relationships built on trust. Meet verified singles from Myanmar, Thailand, Japan, Singapore, Malaysia, and beyond — nearby or worldwide — ready for something meaningful.</p>
         </div> -->
             <div class="mt-3 text-center" style="margin-left: 0; margin-right: 0; padding: 0 15px;">
-        <h1 style="font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px;">
+        <h1 style="font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px;" data-i18n="hero_title">
             Find Your <strong>Life Partner</strong> — Not Just a Match.
         </h1>
-        <p class="tagline" style="padding-bottom: 30px; margin: 0 auto; max-width: 700px; font-size: 1rem; line-height: 1.6;">
+        <p data-i18n="hero_title_content" class="tagline" style="padding-bottom: 30px; margin: 0 auto; max-width: 700px; font-size: 1rem; line-height: 1.6;">
             <strong>Life Partner</strong> is more than a dating app. We connect real people seeking genuine, long-term relationships built on trust. 
             Meet verified singles from Myanmar, Thailand, Japan, Singapore, Malaysia, and beyond — nearby or worldwide — ready for something meaningful.
         </p>
@@ -138,8 +176,8 @@ URI     : https://colorlib.com
     <div class="light-bg" id="features" style="padding-top: 30px; padding-bottom: 30px; padding-left: 0; padding-right: 0;">
         <div class="container">
             <div class="section-title">
-                <small>HIGHLIGHTS</small>
-                <h3>Features you love</h3>
+                <small data-i18n="highlights">HIGHLIGHTS</small>
+                <h3 data-i18n="feature_u_love"> Features you love</h3>
             </div>
 
 
@@ -155,8 +193,8 @@ URI     : https://colorlib.com
                                         style="max-width: 50px; height: auto; align-items: center; align-self: center;">
                                 </span>
                                 <div class="media-body">
-                                    <h4 class="card-title">Simple</h4>
-                                    <p class="card-text">Life Partner is built for those who are serious about finding love. Unlike casual dating apps, we focus on genuine connections, verified profiles, and respectful interactions. Our goal is simple — to help you meet someone who shares your values and dreams in a safe, meaningful way.</p>
+                                    <h4 class="card-title" data-i18n="simple">Simple</h4>
+                                    <p class="card-text" data-i18n="simple_content">Life Partner is built for those who are serious about finding love. Unlike casual dating apps, we focus on genuine connections, verified profiles, and respectful interactions. Our goal is simple — to help you meet someone who shares your values and dreams in a safe, meaningful way.</p>
                                 </div>
                             </div>
                         </div>
@@ -173,8 +211,8 @@ URI     : https://colorlib.com
                                         style="max-width: 50px; height: auto; align-items: center; align-self: center;">
                                 </span>
                                 <div class="media-body">
-                                    <h4 class="card-title">Discover</h4>
-                                    <p class="card-text">Discover real people, not random profiles. Browse nearby and online users or explore matches recommended just for you. With smart filters for age, location, and interests, Life Partner makes it easier to find someone who truly fits your lifestyle — wherever you are in the world.</p>
+                                    <h4 class="card-title" data-i18n="discover">Discover</h4>
+                                    <p class="card-text" data-i18n="discover_content">Discover real people, not random profiles. Browse nearby and online users or explore matches recommended just for you. With smart filters for age, location, and interests, Life Partner makes it easier to find someone who truly fits your lifestyle — wherever you are in the world.</p>
                                 </div>
                             </div>
                         </div>
@@ -191,8 +229,8 @@ URI     : https://colorlib.com
                                         style="max-width: 50px; height: auto; align-items: center; align-self: center;">
                                 </span>
                                 <div class="media-body">
-                                    <h4 class="card-title">Matching & Messaging</h4>
-                                    <p class="card-text">Our smart matching system connects you with people who share your intentions. When both like each other, it’s an instant match. Chat securely, share your story, and let your connection grow — every swipe could start your life partner journey.</p>
+                                    <h4 class="card-title" data-i18n="matching_messaging">Matching & Messaging</h4>
+                                    <p class="card-text" data-i18n="matching_messaging_content">Our smart matching system connects you with people who share your intentions. When both like each other, it’s an instant match. Chat securely, share your story, and let your connection grow — every swipe could start your life partner journey.</p>
                                 </div>
                             </div>
                         </div>
@@ -218,8 +256,8 @@ URI     : https://colorlib.com
                             class="img-fluid" 
                             style="max-width: 50px; height: auto; align-items: center; align-self: center;">
                     </div>
-                    <h2>Discover our App</h2>
-                    <p class="mb-4">We believe love begins with honesty. Life Partner’s blue verification mark helps you build trust within the community. Simply upload a photo following our verification gesture — our system and moderation team will check it carefully to confirm your identity. Once approved, you’ll receive your blue badge — a sign that you’re a verified and trusted member of the Life Partner community.</p>
+                    <h2 data-i18n="discover_app">Discover our App</h2>
+                    <p class="mb-4" data-i18n="discover_app_content">We believe love begins with honesty. Life Partner’s blue verification mark helps you build trust within the community. Simply upload a photo following our verification gesture — our system and moderation team will check it carefully to confirm your identity. Once approved, you’ll receive your blue badge — a sign that you’re a verified and trusted member of the Life Partner community.</p>
                     <a href="https://lifepartner-dev.github.io/life-partner-policies/community-guide.html" class="btn btn-primary">Read more</a>
                 </div>
             </div>
@@ -235,22 +273,22 @@ URI     : https://colorlib.com
     <div class="section light-bg">
         <div class="container">
             <div class="section-title">
-                <small>FEATURES</small>
-                <h3>Do more with our app</h3>
+                <small data-i18n="features_title">FEATURES</small>
+                <h3 data-i18n="do_more">Do more with our app</h3>
             </div>
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#Discover">Discover</a>
+                    <a class="nav-link active" data-toggle="tab" href="#Discover" data-i18n="discover_tab">Discover</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#Matching">Matching</a>
+                    <a class="nav-link" data-toggle="tab" href="#Matching" data-i18n="matching_tab" >Matching</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#Messaging">Messaging</a>
+                    <a class="nav-link" data-toggle="tab" href="#Messaging" data-i18n="messaging_tab" >Messaging</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#Verification"> Verification</a>
+                    <a class="nav-link" data-toggle="tab" href="#Verification" data-i18n="verification_tab" > Verification</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -258,21 +296,21 @@ URI     : https://colorlib.com
                     <div class="d-flex flex-column flex-lg-row">
                         <img src="images/discover.png" alt="graphic" class="img-fluid rounded align-self-center mr-lg-5 mb-2 mb-lg-0" style="max-width: 300px;">
                         <div>
-                            <h2>Discover</h2>
-                            <p class="lead">Discover Real People Around You — Or Across the World</p>
-                            <p>Step into Discover, where you can browse real profiles in a beautifully simple grid view. Meet people nearby, see who’s currently online, or explore recommended matches chosen just for you. </p>
-                            <p> Life Partner lets you take control of your search — with advanced filters for location, age, gender, height, and language. No matter where you are in the world, our community connects Myanmar users everywhere, helping you find someone who truly fits your lifestyle and personality.</p>
+                            <h2 data-i18n="discover_sub_title">Discover</h2>
+                            <p class="lead" data-i18n="discover_sub_p1">Discover Real People Around You — Or Across the World</p>
+                            <p data-i18n="discover_sub_p2">Step into Discover, where you can browse real profiles in a beautifully simple grid view. Meet people nearby, see who’s currently online, or explore recommended matches chosen just for you. </p>
+                            <p data-i18n="discover_sub_p3"> Life Partner lets you take control of your search — with advanced filters for location, age, gender, height, and language. No matter where you are in the world, our community connects Myanmar users everywhere, helping you find someone who truly fits your lifestyle and personality.</p>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="Matching">
                     <div class="d-flex flex-column flex-lg-row">
                         <div>
-                            <h2>Matching</h2>
-                            <p class="lead">When Two Hearts Swipe Right — It’s a Match! </p>
-                            <p>Our matching system makes it easy to connect with people who feel the same way. When both users like each other, it’s an instant match — and the beginning of something special.
+                            <h2 data-i18n="matching_sub_title">Matching</h2>
+                            <p class="lead" data-i18n="matching_sub_p1">When Two Hearts Swipe Right — It’s a Match! </p>
+                            <p data-i18n="matching_sub_p2">Our matching system makes it easy to connect with people who feel the same way. When both users like each other, it’s an instant match — and the beginning of something special.
                             </p>
-                            <p> The more you interact, the smarter your recommendations become. Life Partner learns from your preferences to show you better and more meaningful matches over time. Every swipe brings you closer to meeting your perfect partner.
+                            <p data-i18n="matching_sub_p3"> The more you interact, the smarter your recommendations become. Life Partner learns from your preferences to show you better and more meaningful matches over time. Every swipe brings you closer to meeting your perfect partner.
                             </p>
                         </div>
                         <!-- <img src="images/matching.png" alt="graphic" class="img-fluid rounded align-self-center mr-lg-5 mb-5 mb-lg-0" style="max-width: 300px;margin-left: 48px;"> -->
@@ -288,11 +326,11 @@ URI     : https://colorlib.com
                     <div class="d-flex flex-column flex-lg-row">
                         <img src="images/graphic.png" alt="graphic" class="img-fluid rounded align-self-center mr-lg-5 mb-2 mb-lg-0" style="max-width: 300px;">
                         <div>
-                            <h2>Messaging</h2>
-                            <p class="lead">Start Meaningful Conversations </p>
-                            <p>Once you’ve matched, messaging is where the real connection begins. Chat privately and securely inside the app. Express your thoughts, share photos, and let your personality shine through your words.
+                            <h2 data-i18n="messaging_sub_title">Messaging</h2>
+                            <p class="lead" data-i18n="messaging_sub_p1">Start Meaningful Conversations </p>
+                            <p data-i18n="messaging_sub_p2">Once you’ve matched, messaging is where the real connection begins. Chat privately and securely inside the app. Express your thoughts, share photos, and let your personality shine through your words.
                             </p>
-                            <p> We designed our chat experience to be smooth, simple, and safe — so you can focus on getting to know each other. Every great relationship starts with a single message.
+                            <p data-i18n="messaging_sub_p3"> We designed our chat experience to be smooth, simple, and safe — so you can focus on getting to know each other. Every great relationship starts with a single message.
                             </p>
                         </div>
                     </div>
@@ -300,11 +338,11 @@ URI     : https://colorlib.com
                 <div class="tab-pane fade" id="Verification">
                     <div class="d-flex flex-column flex-lg-row">
                         <div>
-                            <h2>Profile Verification</h2>
-                            <p class="lead">Trust Matters — Get Verified</p>
-                            <p>We believe love begins with honesty. Life Partner’s blue verification mark helps you build trust within the community. Simply upload a photo following our verification gesture — our system and moderation team will check it carefully to confirm your identity.
+                            <h2 data-i18n="verification_sub_title">Profile Verification</h2>
+                            <p class="lead" data-i18n="verification_p1">Trust Matters — Get Verified</p>
+                            <p data-i18n="verification_p2">We believe love begins with honesty. Life Partner’s blue verification mark helps you build trust within the community. Simply upload a photo following our verification gesture — our system and moderation team will check it carefully to confirm your identity.
                             </p>
-                            <p> Once approved, you’ll receive your blue badge — a sign that you’re a verified and trusted member of the Life Partner community. Verified users enjoy more visibility and higher chances of matching.
+                            <p data-i18n="verification_p3"> Once approved, you’ll receive your blue badge — a sign that you’re a verified and trusted member of the Life Partner community. Verified users enjoy more visibility and higher chances of matching.
                             </p>
                         </div>
                         <img src="images/verify.png" alt="graphic" class="img-fluid rounded align-self-center mr-lg-5 mb-2 mb-lg-0" style="max-width: 300px;">
@@ -325,9 +363,9 @@ URI     : https://colorlib.com
                 <div class="col-md-6 d-flex align-items-center">
                     <div>
                         <div class="box-icon"><span class="ti-rocket gradient-fill ti-3x"></span></div>
-                        <h2>Connect & Match Effortlessly</h2>
-                        <p class="mb-4">Discover people who share your interests and values. With <strong>Life Partner</strong>, messaging, matching, and finding meaningful connections has never been easier.</p>
-                        <a href="#" class="btn btn-primary">Read more</a></div>
+                        <h2 data-i18n="connect_match">Connect & Match Effortlessly</h2>
+                        <p class="mb-4" data-i18n="connect_match_p1">Discover people who share your interests and values. With <strong>Life Partner</strong>, messaging, matching, and finding meaningful connections has never been easier.</p>
+                        <a href="#" class="btn btn-primary" data-i18n="connect_match_readmore">Read more</a></div>
                 </div>
             </div>
 
@@ -344,24 +382,24 @@ URI     : https://colorlib.com
                 <div class="col-md-8 d-flex align-items-center">
                     <ul class="list-unstyled ui-steps">
                         <li class="media">
-                            <div class="circle-icon mr-4">1</div>
+                            <div class="circle-icon mr-4" data-i18n="number1">1</div>
                             <div class="media-body">
-                                <h5>Create Your Profile</h5>
-                                <p>Start your journey by setting up your profile in minutes. Add your best photos, share your interests, and tell others what kind of connection you’re looking for — genuine friendship, companionship, or a lifelong partner.</p>
+                                <h5 data-i18n="number1_heading">Create Your Profile</h5>
+                                <p data-i18n="number1_p">Start your journey by setting up your profile in minutes. Add your best photos, share your interests, and tell others what kind of connection you’re looking for — genuine friendship, companionship, or a lifelong partner.</p>
                             </div>
                         </li>
                         <li class="media my-4">
-                            <div class="circle-icon mr-4">2</div>
+                            <div class="circle-icon mr-4" data-i18n="number2">2</div>
                             <div class="media-body">
-                                <h5>Connect & Match</h5>
-                                <p>Discover people nearby or across borders who share your values and goals. Use smart filters to find your ideal match and start meaningful conversations that go beyond just swipes.</p>
+                                <h5 data-i18n="number2_heading">Connect & Match</h5>
+                                <p data-i18n="number2_p">Discover people nearby or across borders who share your values and goals. Use smart filters to find your ideal match and start meaningful conversations that go beyond just swipes.</p>
                             </div>
                         </li>
                         <li class="media">
-                            <div class="circle-icon mr-4">3</div>
+                            <div class="circle-icon mr-4" data-i18n="number3">3</div>
                             <div class="media-body">
-                                <h5>Build Real Connections</h5>
-                                <p>Turn your matches into real-life stories. Meet, share, and grow together with trust and respect — because every great relationship starts with a true connection. </p>
+                                <h5 data-i18n="number3_heading">Build Real Connections</h5>
+                                <p data-i18n="number3_p">Turn your matches into real-life stories. Meet, share, and grow together with trust and respect — because every great relationship starts with a true connection. </p>
                             </div>
                         </li>
                     </ul>
@@ -381,28 +419,28 @@ URI     : https://colorlib.com
     <div class="section">
         <div class="container">
             <div class="section-title">
-                <small>TESTIMONIALS</small>
-                <h3>What our Customers Says</h3>
+                <small data-i18n="testimonials">TESTIMONIALS</small>
+                <h3 data-i18n="testimonials_user_says">What our Customers Says</h3>
             </div>
 
             <div class="testimonials owl-carousel">
                 <div class="testimonials-single">
                     <img src="images/client1.png" alt="client" class="client-img">
-                    <blockquote class="blockquote">Thanks to Life Partner, I met my soulmate! The app is simple to use, and I love the nearby and discovery features that make connecting fun and natural.</blockquote>
-                    <h5 class="mt-4 mb-2">Ei Mon</h5>
-                    <p class="text-sec">Nay Pyi Taw</p>
+                    <blockquote class="blockquote" data-i18n="testimonial_1">Thanks to Life Partner, I met my soulmate! The app is simple to use, and I love the nearby and discovery features that make connecting fun and natural.</blockquote>
+                    <h5 class="mt-4 mb-2" data-i18n="testimonial_1_name">Ei Mon</h5>
+                    <p class="text-sec" data-i18n="testimonial_1_city">Nay Pyi Taw</p>
                 </div>
                 <div class="testimonials-single">
                     <img src="images/client2.png" alt="client" class="client-img">
-                    <blockquote class="blockquote">As someone who’s new to online dating, Life Partner was the perfect app. Easy navigation, clear profiles, and genuine people. Highly recommend!</blockquote>
-                    <h5 class="mt-4 mb-2">Min Thu</h5>
-                    <p class="text-sec">Bago</p>
+                    <blockquote class="blockquote" data-i18n="testimonial_2">As someone who’s new to online dating, Life Partner was the perfect app. Easy navigation, clear profiles, and genuine people. Highly recommend!</blockquote>
+                    <h5 class="mt-4 mb-2" data-i18n="testimonial_2_name">Min Thu</h5>
+                    <p class="text-sec" data-i18n="testimonial_2_city">Bago</p>
                 </div>
                 <div class="testimonials-single">
                     <img src="images/client3.png" alt="client" class="client-img">
-                    <blockquote class="blockquote">Life Partner made finding someone special so easy! The app’s interface is clean, and I love how I can filter by interests and values. I finally met someone who truly gets me.</blockquote>
-                    <h5 class="mt-4 mb-2">Mya Su</h5>
-                    <p class="text-sec">Yangon</p>
+                    <blockquote class="blockquote" data-i18n="testimonial_3">Life Partner made finding someone special so easy! The app’s interface is clean, and I love how I can filter by interests and values. I finally met someone who truly gets me.</blockquote>
+                    <h5 class="mt-4 mb-2" data-i18n="testimonial_3_name">Mya Su</h5>
+                    <p class="text-sec" data-i18n="testimonial_3_city">Yangon</p>
                 </div>
             </div>
 
@@ -415,8 +453,8 @@ URI     : https://colorlib.com
     <div class="section light-bg" id="gallery">
         <div class="container">
             <div class="section-title">
-                <small>GALLERY</small>
-                <h3>App Screenshots</h3>
+                <small data-i18n="gallery">GALLERY</small>
+                <h3 data-i18n="app_screenshots">App Screenshots</h3>
             </div>
 
             <div class="img-gallery owl-carousel owl-theme">
@@ -531,33 +569,33 @@ URI     : https://colorlib.com
     <div class="section pt-0">
   <div class="container">
     <div class="section-title text-center">
-      <small>FAQ</small>
-      <h3>Frequently Asked Questions</h3>
+      <small data-i18n="faq_section">FAQ</small>
+      <h3 data-i18n="faq_section_title">Frequently Asked Questions</h3>
     </div>
 
     <div class="row pt-4 gy-5">
       <!-- Left Column -->
       <div class="col-md-6">
-        <h4 class="mb-3">What’s unique about Life Partner?</h4>
+        <h4 class="mb-3" data-i18n="faq_1">What’s unique about Life Partner?</h4>
         <p class="light-font mb-5">Life Partner is built for serious relationships. We focus on verified profiles and meaningful connections — not casual chats.</p>
 
-        <h4 class="mb-3">How do I verify my profile?</h4>
-        <p class="light-font mb-5">Upload a photo with the required gesture. Our team reviews each request to ensure authenticity. Once approved, you’ll get your blue badge.</p>
+        <h4 class="mb-3"  data-i18n="faq_2">How do I verify my profile?</h4>
+        <p class="light-font mb-5" data-i18n="faq_2a">Upload a photo with the required gesture. Our team reviews each request to ensure authenticity. Once approved, you’ll get your blue badge.</p>
 
-        <h4 class="mb-3">Is Life Partner free to use?</h4>
-        <p class="light-font mb-5">Yes! All current features are free. Premium options are coming soon to enhance your experience even more.</p>
+        <h4 class="mb-3"  data-i18n="faq_3">Is Life Partner free to use?</h4>
+        <p class="light-font mb-5" data-i18n="faq_3a">Yes! All current features are free. Premium options are coming soon to enhance your experience even more.</p>
       </div>
 
       <!-- Right Column -->
       <div class="col-md-6">
-        <h4 class="mb-3">Can I use Life Partner outside of Myanmar?</h4>
-        <p class="light-font mb-5">Absolutely. Our platform connects users globally — from Myanmar to Thailand, Japan, Singapore, Malaysia, and beyond.</p>
+        <h4 class="mb-3" data-i18n="faq_4">Can I use Life Partner outside of Myanmar?</h4>
+        <p class="light-font mb-5" data-i18n="faq_4a">Absolutely. Our platform connects users globally — from Myanmar to Thailand, Japan, Singapore, Malaysia, and beyond.</p>
 
-        <h4 class="mb-3">How do I report inappropriate behavior or fake accounts?</h4>
-        <p class="light-font mb-5">Just tap “Report” on any profile. Our team reviews reports quickly to keep Life Partner safe and respectful.</p>
+        <h4 class="mb-3" data-i18n="faq_5">How do I report inappropriate behavior or fake accounts?</h4>
+        <p class="light-font mb-5" data-i18n="faq_5a">Just tap “Report” on any profile. Our team reviews reports quickly to keep Life Partner safe and respectful.</p>
 
-        <h4 class="mb-3">What devices support the app?</h4>
-        <p class="light-font mb-5">Life Partner is available on both iOS and Android. Download it today on the App Store or Google Play.</p>
+        <h4 class="mb-3" data-i18n="faq_6">What devices support the app?</h4>
+        <p class="light-font mb-5" data-i18n="faq_6a">Life Partner is available on both iOS and Android. Download it today on the App Store or Google Play.</p>
       </div>
     </div>
   </div>
@@ -569,14 +607,14 @@ URI     : https://colorlib.com
         <div class="container" id="download">
             <div class="call-to-action">
                 <div class="box-icon"><span class="ti-mobile gradient-fill ti-3x"></span></div>
-                <h2>Download Anywhere</h2>
-                <p class="tagline">Available for all major mobile and desktop platforms. Rapidiously visualize optimal ROI rather than enterprise-wide methods of empowerment. </p>
+                <h2 data-i18n="download_anywhere">Download Anywhere</h2>
+                <p class="tagline" data-i18n="download_anywhere_p">Available for all major mobile and desktop platforms. Rapidiously visualize optimal ROI rather than enterprise-wide methods of empowerment. </p>
                 <div class="my-4">
 
-                    <a href="#" class="btn btn-light"><img src="images/appleicon.png" alt="icon"> App Store</a>
-                    <a href="#" class="btn btn-light"><img src="images/playicon.png" alt="icon"> Google play</a>
+                    <a href="#" class="btn btn-light"><img src="images/appleicon.png" alt="icon" data-i18n="app_store"> App Store</a>
+                    <a href="#" class="btn btn-light"><img src="images/playicon.png" alt="icon" data-i18n="google_play"> Google play</a>
                 </div>
-                <p class="text-primary"><small><i>*Works on iOS 10.0.5+, Android Kitkat and above. </i></small></p>
+                <p class="text-primary"><small data-i18n="works_on_ios"><i>*Works on iOS 10.0.5+, Android Kitkat and above. </i></small></p>
             </div>
         </div>
 
@@ -587,7 +625,7 @@ URI     : https://colorlib.com
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-left">
-                    <p class="mb-2"> <span class="ti-location-pin mr-2"></span> Life Partner Co., Ltd, Corner of Sapal Mar Ga Street, Sin Ma Lite Ward, Kamaryut Township, Yangon, Myanmar.</p>
+                    <p class="mb-2" data-i18n="lp_address"> <span class="ti-location-pin mr-2" ></span> Life Partner Co., Ltd, Corner of Sapal Mar Ga Street, Sin Ma Lite Ward, Kamaryut Township, Yangon, Myanmar.</p>
                     <div class=" d-block d-sm-inline-block">
                         <p class="mb-2">
                             <span class="ti-email mr-2"></span> <a class="mr-4" href="mailto:admin@life-partner.co">admin@life-partner.co</a>
@@ -626,10 +664,10 @@ URI     : https://colorlib.com
         <p class="mb-2"><small>COPYRIGHT © 2025. ALL RIGHTS RESERVED. <a href="https://life-partner.co">Life Partner</a></small></p>
 
         <small>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/community-guide.html" class="m-2">Community Guide</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/terms-and-conditions.html" class="m-2">Terms of Service</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/privacy-policy.html" class="m-2">Privacy Policy</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/data-deletion.html" class="m-2">Data Deletion</a>
+            <a href="https://lifepartner-dev.github.io/life-partner-policies/community-guide.html" class="m-2" data-i18n="community_guide">Community Guide</a>
+            <a href="https://lifepartner-dev.github.io/life-partner-policies/terms-and-conditions.html" class="m-2" data-i18n="terms_of_service">Terms of Service</a>
+            <a href="https://lifepartner-dev.github.io/life-partner-policies/privacy-policy.html" class="m-2" data-i18n="privacy_policy">Privacy Policy</a>
+            <a href="https://lifepartner-dev.github.io/life-partner-policies/data-deletion.html" class="m-2" data-i18n="data_deletion">Data Deletion</a>
 
         </small>
     </footer>
