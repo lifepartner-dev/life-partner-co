@@ -14,31 +14,22 @@ URI     : https://colorlib.com
 <script src="js/script.js"></script>
 
 <script>
-  function redirectToStore() {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+function redirectToStore() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    if (/android/i.test(userAgent)) {
-      // Redirect to Google Play
-      window.location.href = "https://play.google.com/store/apps/details?id=com.tinder&hl=en";
-    } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      // Redirect to App Store
-      window.location.href = "https://apps.apple.com/us/app/tinder-dating-app-date-chat/id547702041";
-    } else {
-      // Redirect to a specific section on your site
-    //   window.location.href = "#download";
-    // Smooth scroll to section
-      const section = document.getElementById("download");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+  if (/android/i.test(userAgent)) {
+    window.location.href = "https://play.google.com/store/apps/details?id=com.tinder&hl=en";
+  } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    window.location.href = "https://apps.apple.com/us/app/tinder-dating-app-date-chat/id547702041";
+  } else {
+    const section = document.getElementById("download");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   }
+}
 
-document.getElementById('languageSelect').addEventListener('change', function() {
-  const selectedLang = this.value;
-  loadLanguage(selectedLang);
-  localStorage.setItem('selectedLang', selectedLang); // save preference
-});
+const languageSelect = document.getElementById('languageSelect');
 
 function loadLanguage(lang) {
   fetch(`lang/${lang}.json`)
@@ -46,16 +37,39 @@ function loadLanguage(lang) {
     .then(data => {
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        // if (data[key]) el.innerText = data[key];
         if (data[key]) el.innerHTML = data[key];
       });
     });
 }
 
-// Load saved language on start
+function updatePolicyLinks(language) {
+  document.querySelectorAll('small a[data-i18n]').forEach(link => {
+    const newUrl = link.getAttribute('data-' + language);
+    if (newUrl) link.href = newUrl;
+  });
+}
+
+function changeLanguage(lang) {
+  loadLanguage(lang);
+  updatePolicyLinks(lang);
+  localStorage.setItem('selectedLang', lang);
+
+  const button = document.getElementById('languageDropdown');
+  if (lang === 'en') button.innerHTML = '🇬🇧 English';
+  else if (lang === 'mm') button.innerHTML = '🇲🇲 မြန်မာ';
+}
+
+languageSelect.addEventListener('change', function() {
+  const selectedLang = this.value;
+  loadLanguage(selectedLang);
+  updatePolicyLinks(selectedLang);
+  localStorage.setItem('selectedLang', selectedLang);
+});
+
 const savedLang = localStorage.getItem('selectedLang') || 'en';
 loadLanguage(savedLang);
-document.getElementById('languageSelect').value = savedLang;
+updatePolicyLinks(savedLang);
+languageSelect.value = savedLang;
 </script>
 <head>
     <title>Life Partner Dating App</title>
@@ -114,14 +128,21 @@ document.getElementById('languageSelect').value = savedLang;
                                 <!-- <li class="nav-item"> <a class="nav-link" href="#pricing">PRICING</a> </li> -->
                                 <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
                                 <li class="nav-item"><a href="#" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3" onclick="redirectToStore()">Download</a></li>
-                                <li class="nav-item"> 
-                                    <!-- Language Switcher -->   
-                                    <select id="languageSelect" class="nav-link btn btn-outline-light my-3 my-sm-0 ml-lg-3" style="width:auto; color:black; background-color:white; border:1px solid #ccc;">
+                                <!-- <li class="nav-item"><select id="languageSelect" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3" style="width:auto; color:black; background-color:white; border:1px solid #ccc;">
                                         <option value="en">🇬🇧 English</option>
                                         <option value="mm">🇲🇲 မြန်မာ</option>
-                                    </select>
-                                   
+                                        </select> 
+                                </li> -->
+                                <li class="nav-item dropdown ml-lg-3">
+                                    <button class="btn btn-outline-light dropdown-toggle my-3 my-sm-0" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: none;">
+                                        🇬🇧 English
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                                       <a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇬🇧 English</a>
+                                        <a class="dropdown-item" href="#" onclick="changeLanguage('mm')">🇲🇲 မြန်မာ</a>
+                                    </div>
                                 </li>
+
                             </ul>
                             
                         </div>
@@ -143,6 +164,7 @@ document.getElementById('languageSelect').value = savedLang;
             <h1 >Find Your <strong>Life Partner</strong> — Not Just a Match.</h1>
             <p class="tagline" style="padding-bottom: 30px;  margin-left:20px; margin-right:20px; align-items: center; align-content: center; text-align: center;"><strong>Life Partner</strong> is more than a dating app. We connect real people seeking genuine, long-term relationships built on trust. Meet verified singles from Myanmar, Thailand, Japan, Singapore, Malaysia, and beyond — nearby or worldwide — ready for something meaningful.</p>
         </div> -->
+        
             <div class="mt-3 text-center" style="margin-left: 0; margin-right: 0; padding: 0 15px;">
         <h1 style="font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px;" data-i18n="hero_title">
             Find Your <strong>Life Partner</strong> — Not Just a Match.
@@ -664,13 +686,36 @@ document.getElementById('languageSelect').value = savedLang;
         <!-- Copyright removal is not prohibited! -->
         <p class="mb-2"><small>COPYRIGHT © 2025. ALL RIGHTS RESERVED. <a href="https://life-partner.co">Life Partner</a></small></p>
 
-        <small>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/community-guide.html" class="m-2" data-i18n="community_guide">Community Guide</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/terms-and-conditions.html" class="m-2" data-i18n="terms_of_service">Terms of Service</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/privacy-policy.html" class="m-2" data-i18n="privacy_policy">Privacy Policy</a>
-            <a href="https://lifepartner-dev.github.io/life-partner-policies/data-deletion.html" class="m-2" data-i18n="data_deletion">Data Deletion</a>
+    <small>
+    <a href="https://lifepartner-dev.github.io/life-partner-policies/en/community-guide" 
+       class="m-2 underline-link" data-i18n="community_guide"
+       data-en="https://lifepartner-dev.github.io/life-partner-policies/en/community-guide"
+       data-mm="https://lifepartner-dev.github.io/life-partner-policies/mm/community-guide">
+       Community Guide
+    </a>
 
-        </small>
+    <a href="https://lifepartner-dev.github.io/life-partner-policies/en/terms-and-conditions" 
+       class="m-2 underline-link" data-i18n="terms_of_service"
+       data-en="https://lifepartner-dev.github.io/life-partner-policies/en/terms-and-conditions"
+       data-mm="https://lifepartner-dev.github.io/life-partner-policies/mm/terms-and-conditions">
+       Terms and Conditions
+    </a>
+
+    <a href="https://lifepartner-dev.github.io/life-partner-policies/en/privacy-policy" 
+       class="m-2 underline-link" data-i18n="privacy_policy"
+       data-en="https://lifepartner-dev.github.io/life-partner-policies/en/privacy-policy"
+       data-mm="https://lifepartner-dev.github.io/life-partner-policies/mm/privacy-policy">
+       Privacy Policy
+    </a>
+
+    <a href="https://lifepartner-dev.github.io/life-partner-policies/en/data-deletion" 
+       class="m-2 underline-link" data-i18n="data_deletion"
+       data-en="https://lifepartner-dev.github.io/life-partner-policies/en/data-deletion"
+       data-mm="https://lifepartner-dev.github.io/life-partner-policies/mm/data-deletion">
+       Data Deletion Policy
+    </a>
+    </small>
+
     </footer>
 
     <!-- jQuery and Bootstrap -->

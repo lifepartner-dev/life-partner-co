@@ -110,6 +110,9 @@ p.lead {
 .btn-outline-light:hover {
     color: #d6619c;
 }
+.underline-link {
+    text-decoration: underline;
+}
 
 .btn-primary {
     border-radius: 3px;
